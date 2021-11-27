@@ -4,7 +4,7 @@
   </el-tooltip>
 
   <div class="container">
-    <MyBreadcrumb />
+    <MyBreadcrumb :list="$route.meta" />
     <UserInfo />
   </div>
 </template>
