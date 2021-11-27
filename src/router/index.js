@@ -69,7 +69,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const token = locaCache.getCache('token')
-  console.log(!to.meta.isPublic)
+
   if (!to.meta.isPublic && !token) {
     return next('/login')
   }

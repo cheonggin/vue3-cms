@@ -22,7 +22,7 @@ import localCache from '@/utils/cache'
 const router = useRouter()
 const store = useStore()
 
-const username = computed(() => store.state.login.userinfo.admin_name)
+const username = computed(() => store.state.login.userinfo.username)
 
 function logout() {
   localCache.deleteCache('token')

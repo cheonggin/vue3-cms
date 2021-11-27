@@ -19,7 +19,7 @@ const loginModule = {
   actions: {
     async accountLoginAction({ commit }, account) {
       const {
-        result: { token, userinfo }
+        data: { token, userinfo }
       } = await accountLoginRequest(account)
 
       commit('initUserInfo', { token, userinfo })
