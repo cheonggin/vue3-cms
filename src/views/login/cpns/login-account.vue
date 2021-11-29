@@ -33,7 +33,7 @@ const formRef = ref(null)
 defineExpose({
   loginAction() {
     formRef.value.validate(async valid => {
-      valid && store.dispatch('accountLoginAction', account)
+      valid && store.dispatch('login/accountLoginAction', account)
     })
   }
 })

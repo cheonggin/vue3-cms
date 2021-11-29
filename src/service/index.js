@@ -1,7 +1,10 @@
-import Http from './http'
-import { BASE_URL, TIME_OUT } from './http/config'
+import http from './http'
+import URL from './constant'
 
-export default new Http({
-  baseURL: BASE_URL,
-  timeout: TIME_OUT
-})
+// 管理员登录
+export function accountLoginRequest(account) {
+  return http.post({
+    url: URL.LOGIN_URL,
+    data: account
+  })
+}

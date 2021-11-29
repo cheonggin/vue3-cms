@@ -12,7 +12,7 @@ const store = createStore({
 })
 
 export function setupStore() {
-  store.dispatch('loadLocalLogin')
+  store.dispatch('login/loadLocalLogin')
 }
 
 export default store

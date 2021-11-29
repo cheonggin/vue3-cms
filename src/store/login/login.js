@@ -1,9 +1,10 @@
 import router from '@/router'
 
-import { accountLoginRequest } from '@/service/login/login'
+import { accountLoginRequest } from '@/service'
 import localCache from '@/utils/cache'
 
 const loginModule = {
+  namespaced: true,
   state() {
     return {
       token: '',
