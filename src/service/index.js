@@ -8,3 +8,11 @@ export function accountLoginRequest(account) {
     data: account
   })
 }
+
+// 用户列表
+export function getUserList(query) {
+  return http.get({
+    url: URL.USER_LIST_URL,
+    params: query
+  })
+}
