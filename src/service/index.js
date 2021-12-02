@@ -1,18 +1,17 @@
 import http from './http'
-import URL from './constant'
 
 // 管理员登录
 export function accountLoginRequest(account) {
   return http.post({
-    url: URL.LOGIN_URL,
+    url: '/rest/admin/login',
     data: account
   })
 }
 
-// 用户列表
-export function getUserList(query) {
+// 获取列表数据
+export function getPageListData(url, query) {
   return http.get({
-    url: URL.USER_LIST_URL,
+    url: url,
     params: query
   })
 }

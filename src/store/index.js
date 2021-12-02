@@ -1,6 +1,6 @@
 import { createStore, createLogger } from 'vuex'
 import login from './login/login'
-import user from './main/user/user'
+import main from './main/main'
 
 const isProd = import.meta.env.mode === 'production'
 
@@ -8,7 +8,7 @@ const store = createStore({
   state: {},
   mutations: {},
   actions: {},
-  modules: { login, user },
+  modules: { login, main },
   plugins: isProd ? [createLogger()] : []
 })
 
