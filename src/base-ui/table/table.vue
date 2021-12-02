@@ -71,14 +71,14 @@ defineProps({
   }
 })
 
-const emits = defineEmits(['size-change', 'current-change'])
+const emits = defineEmits(['update:pageSize', 'update:currentPage'])
 
 function handleSizeChange(pageSize) {
-  emits('size-change', pageSize)
+  emits('update:pageSize', pageSize)
 }
 
 function handleCurrentChange(currentPage) {
-  emits('current-change', currentPage)
+  emits('update:currentPage', currentPage)
 }
 </script>
 
