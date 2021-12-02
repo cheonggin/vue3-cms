@@ -1,15 +1,7 @@
 <template>
   <el-row :gutter="gutter">
     <el-col :span="8">
-      <el-input
-        v-model="query"
-        clearable
-        :placeholder="placeholder"
-        @clear="handleClickClear"
-      >
-        <template #append>
-          <el-button :icon="Search" @click="handleClickSearch"></el-button>
-        </template>
+      <el-input v-model="query" clearable :placeholder="placeholder">
       </el-input>
     </el-col>
     <el-col v-if="isShowAdd" :span="4">
@@ -22,7 +14,7 @@
 
 <script setup>
 import { ref, watch } from 'vue'
-import { Search, Plus } from '@element-plus/icons'
+import { Plus } from '@element-plus/icons'
 
 const props = defineProps({
   modelValue: { type: String, default: '' },
@@ -36,14 +28,6 @@ const emits = defineEmits(['update:modelValue', 'clear', 'search', 'add'])
 const query = ref(props.modelValue)
 
 watch(query, newQuery => emits('update:modelValue', newQuery))
-
-function handleClickClear() {
-  emits('clear')
-}
-
-function handleClickSearch() {
-  emits('search', query.value)
-}
 
 function handleClickAdd() {
   emits('add')
