@@ -10,7 +10,22 @@
       :query="query"
       :content-table-config="contentTableConfig"
       page-name="user"
-    />
+    >
+      <template #status="scope">
+        <el-button
+          plain
+          size="mini"
+          :type="scope.row.status ? 'success' : 'danger'"
+        >
+          {{ scope.row.status ? '启用' : '禁用' }}
+        </el-button>
+      </template>
+      <!-- <el-switch
+          v-model="scope.row.status"
+          active-color="#13ce66"
+          inactive-color="#ff4949"
+        /> -->
+    </PageContent>
   </el-card>
 </template>
 
