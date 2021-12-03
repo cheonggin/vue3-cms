@@ -6,14 +6,6 @@
     :table-data="tableData"
     :total="total"
   >
-    <template #status="scope">
-      <el-switch
-        v-model="scope.row.status"
-        active-color="#13ce66"
-        inactive-color="#ff4949"
-      />
-    </template>
-
     <template #created="scope">
       {{ $filter.formatTime(scope.row.created) }}
     </template>
@@ -43,6 +35,11 @@
           ></el-button>
         </template>
       </el-popconfirm>
+    </template>
+
+    <!-- 动态插入剩余插槽 -->
+    <template v-for="item in otherSlots" :key="item.prop" #[item.prop]="scope">
+      <slot :name="item.prop" :row="scope.row"></slot>
     </template>
   </MyTable>
 </template>
@@ -84,6 +81,14 @@ watch(
     deep: true
   }
 )
+
+// 获取其它动态插槽
+const otherSlots = props.contentTableConfig.tableColumn.filter(item => {
+  if (item.prop === 'created') return false
+  if (item.prop === 'updated') return false
+  if (item.prop === 'operate') return false
+  return true
+})
 
 // vuex
 const store = useStore()
