@@ -3,7 +3,7 @@
     <el-row>
       <template v-for="item in formItems" :key="item.label">
         <el-col :span="span">
-          <el-form-item :label="item.label">
+          <el-form-item v-if="!item.isHidden" :label="item.label">
             <!-- input框文本框与密码框 -->
             <template v-if="item.type === 'input' || item.type === 'password'">
               <el-input
@@ -12,6 +12,24 @@
                 :model-value="modelValue[`${item.field}`]"
                 @update:modelValue="handleValueChange($event, item.field)"
               />
+            </template>
+
+            <!-- 选择框 -->
+            <template v-else-if="item.type === 'select'">
+              <el-select
+                :placeholder="item.placeholder"
+                style="width: 100%"
+                :model-value="modelValue[`${item.field}`]"
+                @update:modelValue="handleValueChange($event, item.field)"
+              >
+                <el-option
+                  v-for="val in item.options"
+                  :key="val.value"
+                  :label="val.label"
+                  :value="val.value"
+                >
+                </el-option>
+              </el-select>
             </template>
           </el-form-item>
         </el-col>
