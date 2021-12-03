@@ -22,9 +22,27 @@
       {{ $filter.formatTime(scope.row.updated) }}
     </template>
 
-    <template #operate>
-      <el-button type="primary" :icon="Edit" size="mini" circle></el-button>
-      <el-button type="danger" :icon="Delete" size="mini" circle></el-button>
+    <template #operate="scope">
+      <el-button
+        type="primary"
+        :icon="Edit"
+        size="mini"
+        circle
+        @click="handleEdit(scope.row)"
+      ></el-button>
+      <el-popconfirm
+        title="确定删除该数据吗？"
+        @confirm="handleDelete(scope.row._id)"
+      >
+        <template #reference>
+          <el-button
+            type="danger"
+            :icon="Delete"
+            size="mini"
+            circle
+          ></el-button>
+        </template>
+      </el-popconfirm>
     </template>
   </MyTable>
 </template>
@@ -42,6 +60,7 @@ const props = defineProps({
   pageName: { type: String, required: true },
   query: { type: String, default: '' }
 })
+const emits = defineEmits(['edit'])
 defineExpose({ getPageData })
 
 const state = reactive({
@@ -81,6 +100,14 @@ function getPageData(queryInfo) {
     pageName: props.pageName,
     queryInfo: { pageSize: 5, currentPage: 1, ...queryInfo }
   })
+}
+
+function handleDelete(id) {
+  store.dispatch('main/deletePageDataAction', { pageName: props.pageName, id })
+}
+
+function handleEdit(item) {
+  emits('edit', item)
 }
 </script>
 
