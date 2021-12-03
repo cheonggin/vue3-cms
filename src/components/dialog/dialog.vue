@@ -1,5 +1,5 @@
 <template>
-  <el-dialog v-model="dialogVisible" width="50%" center>
+  <el-dialog v-model="dialogVisible" width="50%" center destroy-on-close>
     <MyForm v-model="formData" v-bind="formConfig"></MyForm>
     <template #footer>
       <span class="dialog-footer">
