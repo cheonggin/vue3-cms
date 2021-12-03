@@ -1,7 +1,7 @@
 <template>
   <el-dropdown>
     <span class="el-dropdown-link">
-      {{ username }}<el-icon class="el-icon--right"><arrow-down /></el-icon>
+      {{ name }}<el-icon class="el-icon--right"><arrow-down /></el-icon>
     </span>
     <template #dropdown>
       <el-dropdown-menu>
@@ -22,7 +22,7 @@ import localCache from '@/utils/cache'
 const router = useRouter()
 const store = useStore()
 
-const username = computed(() => store.state.login.userinfo.username)
+const name = computed(() => store.state.login.userinfo.name)
 
 function logout() {
   localCache.deleteCache('token')

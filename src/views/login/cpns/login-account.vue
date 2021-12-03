@@ -7,8 +7,8 @@
       :rules="rules"
       :model="account"
     >
-      <el-form-item label="账号" prop="username" label-width="60px">
-        <el-input v-model="account.username"></el-input>
+      <el-form-item label="账号" prop="name" label-width="60px">
+        <el-input v-model="account.name"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password" label-width="60px">
         <el-input v-model="account.password" show-password></el-input>
@@ -25,7 +25,7 @@ import { rules } from '../config/account-config'
 
 const store = useStore()
 const account = reactive({
-  username: 'test',
+  name: 'test',
   password: 'test'
 })
 const formRef = ref(null)
