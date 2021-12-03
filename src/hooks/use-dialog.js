@@ -1,15 +1,17 @@
 import { ref } from 'vue'
 
-export function useDialog() {
+export function useDialog(addFn, editFn) {
   const myDialogRef = ref(null)
   const defaultInfo = ref({})
 
   function showDialog() {
+    addFn && addFn()
     defaultInfo.value = {}
     myDialogRef.value.dialogVisible = true
   }
 
   function handleEdit(item) {
+    editFn && editFn()
     defaultInfo.value = item
     myDialogRef.value.dialogVisible = true
   }

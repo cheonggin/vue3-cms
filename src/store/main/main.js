@@ -14,7 +14,9 @@ const mainModule = {
       userTotal: 0,
       userList: [],
       roleTotal: 0,
-      roleList: []
+      roleList: [],
+      adminTotal: 0,
+      adminList: []
     }
   },
   getters: {
@@ -33,6 +35,10 @@ const mainModule = {
     changeRoleData(state, { total, list }) {
       state.roleTotal = total
       state.roleList = list
+    },
+    changeAdminData(state, { total, list }) {
+      state.adminTotal = total
+      state.adminList = list
     }
   },
   actions: {
