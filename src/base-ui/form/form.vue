@@ -14,7 +14,7 @@
               />
             </template>
 
-            <!-- 选择框 -->
+            <!-- select选择框 -->
             <template v-else-if="item.type === 'select'">
               <el-select
                 :placeholder="item.placeholder"
@@ -30,6 +30,19 @@
                 >
                 </el-option>
               </el-select>
+            </template>
+
+            <!-- 级联选择器 -->
+            <template v-else-if="item.type === 'cascader'">
+              <el-cascader
+                :options="item.options"
+                :props="{ checkStrictly: true }"
+                clearable
+                :placeholder="item.placeholder"
+                style="width: 100%"
+                :model-value="modelValue[`${item.field}`]"
+                @update:modelValue="handleValueChange($event, item.field)"
+              />
             </template>
           </el-form-item>
         </el-col>
