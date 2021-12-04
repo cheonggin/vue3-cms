@@ -8,24 +8,35 @@ const isProd = import.meta.env.mode === 'production'
 const store = createStore({
   state() {
     return {
-      entireRole: []
+      entireRole: [],
+      entireCategory: []
     }
   },
   mutations: {
     changeEntireRole(state, list) {
       state.entireRole = list
+    },
+    changeEntireCategory(state, list) {
+      state.entireCategory = list
     }
   },
   actions: {
     async initDataAction({ commit }) {
+      // 获取角色列表
       const {
-        data: { list }
-      } = await getPageListData('/rest/roles', {
+        data: { list: roleList }
+      } = await getPageListData('/rest/role', {
         currentPage: 1,
         pageSize: 1000
       })
 
-      commit('changeEntireRole', list)
+      // 获取分类列表
+      const {
+        data: { list: categoryList }
+      } = await getPageListData('/rest/category')
+
+      commit('changeEntireRole', roleList)
+      commit('changeEntireCategory', categoryList)
     }
   },
   modules: { login, main },

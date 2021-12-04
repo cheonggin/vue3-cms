@@ -16,7 +16,9 @@ const mainModule = {
       roleTotal: 0,
       roleList: [],
       adminTotal: 0,
-      adminList: []
+      adminList: [],
+      categoryTotal: 0,
+      categoryList: []
     }
   },
   getters: {
@@ -39,13 +41,17 @@ const mainModule = {
     changeAdminData(state, { total, list }) {
       state.adminTotal = total
       state.adminList = list
+    },
+    changeCategoryData(state, { total, list }) {
+      state.categoryTotal = total
+      state.categoryList = list
     }
   },
   actions: {
     async getPageListAction({ commit }, payload) {
       // 获取url
       const { pageName } = payload
-      const url = `/rest/${pageName}s`
+      const url = `/rest/${pageName}`
 
       const {
         data: { total, list }
@@ -59,7 +65,7 @@ const mainModule = {
     async deletePageDataAction({ dispatch }, payload) {
       // 获取url
       const { pageName, id } = payload
-      const url = `/rest/${pageName}s/${id}`
+      const url = `/rest/${pageName}/${id}`
 
       const result = await deletePageData(url)
       if (result.code === 0) {
@@ -76,7 +82,7 @@ const mainModule = {
     },
     async createPageDataAction({ dispatch }, payload) {
       const { pageName, addData } = payload
-      const url = `/rest/${pageName}s`
+      const url = `/rest/${pageName}`
 
       const result = await createPageData(url, addData)
       if (result.code === 0) {
@@ -93,7 +99,7 @@ const mainModule = {
     },
     async editPageDataAction({ dispatch }, payload) {
       const { pageName, editData, id } = payload
-      const url = `/rest/${pageName}s/${id}`
+      const url = `/rest/${pageName}/${id}`
 
       const result = await editPageData(url, editData)
       if (result.code === 0) {
