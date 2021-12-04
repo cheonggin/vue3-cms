@@ -1,5 +1,11 @@
 <template>
-  <el-table border :data="tableData" style="width: 100%">
+  <el-table
+    border
+    :data="tableData"
+    style="width: 100%"
+    row-key="_id"
+    show-overflow-tooltip
+  >
     <el-table-column
       v-if="isShowIndex"
       label="序号"
