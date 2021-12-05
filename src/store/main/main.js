@@ -18,7 +18,9 @@ const mainModule = {
       adminTotal: 0,
       adminList: [],
       categoryTotal: 0,
-      categoryList: []
+      categoryList: [],
+      goodsTotal: 0,
+      goodsList: []
     }
   },
   getters: {
@@ -45,6 +47,10 @@ const mainModule = {
     changeCategoryData(state, { total, list }) {
       state.categoryTotal = total
       state.categoryList = list
+    },
+    changeGoodsData(state, { total, list }) {
+      state.goodsTotal = total
+      state.goodsList = list
     }
   },
   actions: {
