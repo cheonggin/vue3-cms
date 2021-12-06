@@ -36,13 +36,26 @@
             <template v-else-if="item.type === 'cascader'">
               <el-cascader
                 :options="item.options"
-                :props="{ checkStrictly: true }"
+                :props="{ emitPath: true, checkStrictly: true }"
                 clearable
                 :placeholder="item.placeholder"
                 style="width: 100%"
                 :model-value="modelValue[`${item.field}`]"
                 @update:modelValue="handleValueChange($event, item.field)"
+                @change="handleChangeCascaderNode($event, item.field)"
               />
+            </template>
+
+            <!-- 单选框 -->
+            <template v-else-if="item.type === 'radio'">
+              <el-radio
+                v-for="value in item.options"
+                :key="value.label"
+                :model-value="modelValue[`${item.field}`]"
+                :label="value.label"
+                @update:modelValue="handleValueChange($event, item.field)"
+                >{{ value.text }}</el-radio
+              >
             </template>
           </el-form-item>
         </el-col>
@@ -64,6 +77,14 @@ const emits = defineEmits(['update:modelValue'])
 
 function handleValueChange(value, field) {
   emits('update:modelValue', { ...props.modelValue, [field]: value })
+}
+
+function handleChangeCascaderNode(value, field) {
+  let val = null
+  if (value) {
+    val = value.slice().pop()
+  }
+  emits('update:modelValue', { ...props.modelValue, [field]: val })
 }
 </script>
 

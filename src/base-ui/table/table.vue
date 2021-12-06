@@ -30,7 +30,7 @@
       <el-pagination
         :current-page="currentPage"
         :page-size="pageSize"
-        :page-sizes="[5, 10, 50, 100]"
+        :page-sizes="[20, 50, 100, 200]"
         layout="total, sizes, prev, pager, next, jumper"
         :total="total"
         @size-change="handleSizeChange"
