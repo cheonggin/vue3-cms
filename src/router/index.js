@@ -57,6 +57,12 @@ const routes = [
         name: 'admin',
         meta: ['系统管理', '管理员管理'],
         component: () => import('@/views/main/system/admin/admin.vue')
+      },
+      {
+        path: '/menu',
+        name: 'menu',
+        meta: ['系统管理', '菜单管理'],
+        component: () => import('@/views/main/system/menu/menu.vue')
       }
     ]
   }

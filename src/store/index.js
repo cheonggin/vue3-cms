@@ -9,7 +9,8 @@ const store = createStore({
   state() {
     return {
       entireRole: [],
-      entireCategory: []
+      entireCategory: [],
+      entireMenu: []
     }
   },
   mutations: {
@@ -18,6 +19,9 @@ const store = createStore({
     },
     changeEntireCategory(state, list) {
       state.entireCategory = list
+    },
+    changeEntireMenu(state, list) {
+      state.entireMenu = list
     }
   },
   actions: {
@@ -25,7 +29,7 @@ const store = createStore({
       // 获取角色列表
       const {
         data: { list: roleList }
-      } = await getPageListData('/rest/role', {
+      } = await getPageListData('/role/list', {
         currentPage: 1,
         pageSize: 1000
       })
@@ -33,10 +37,22 @@ const store = createStore({
       // 获取分类列表
       const {
         data: { list: categoryList }
-      } = await getPageListData('/rest/category')
+      } = await getPageListData('/category/list', {
+        currentPage: 1,
+        pageSize: 1000
+      })
+
+      // // 获取菜单列表
+      const {
+        data: { list: menuList }
+      } = await getPageListData('/menu/list', {
+        currentPage: 1,
+        pageSize: 1000
+      })
 
       commit('changeEntireRole', roleList)
       commit('changeEntireCategory', categoryList)
+      commit('changeEntireMenu', menuList)
     }
   },
   modules: { login, main },

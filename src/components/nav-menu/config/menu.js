@@ -24,7 +24,8 @@ export const menuList = [
     icon: Setting,
     children: [
       { path: '/roles', title: '角色管理' },
-      { path: '/admin_users', title: '管理员管理' }
+      { path: '/admin_users', title: '管理员管理' },
+      { path: '/menu', title: '菜单管理' }
     ]
   }
 ]
