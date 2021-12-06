@@ -1,11 +1,12 @@
 <template>
   <el-card>
-    <MySearch v-model="query" title="添加商品" @add="showDialog" />
+    <MySearch v-model="query" title="添加分类" @add="showDialog" />
 
     <PageContent
       ref="pageContentRef"
       :query="query"
       :content-table-config="contentTableConfig"
+      :is-show-index="false"
       page-name="category"
       @edit="handleEdit"
     >
