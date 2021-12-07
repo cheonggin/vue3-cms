@@ -11,7 +11,7 @@ export function useDialog(addFn, editFn) {
   }
 
   function handleEdit(item) {
-    editFn && editFn()
+    editFn && editFn(item)
     defaultInfo.value = item
     myDialogRef.value.dialogVisible = true
   }

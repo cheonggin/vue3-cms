@@ -15,11 +15,24 @@
       page-name="role"
       :form-config="formConfig"
       :default-info="defaultInfo"
-    />
+      :permission-list="permissionList"
+    >
+      <el-tree
+        ref="elTreeRef"
+        :data="menuList"
+        show-checkbox
+        node-key="_id"
+        :props="{ children: 'children', label: 'name' }"
+        @check="handleChangeCheck"
+      />
+    </MyDialog>
   </el-card>
 </template>
 
 <script setup>
+import { ref, computed, nextTick } from 'vue'
+import { useStore } from 'vuex'
+
 import MySearch from '@/components/search/search.vue'
 import PageContent from '@/components/page-content/page-content.vue'
 import MyDialog from '@/components/dialog/dialog.vue'
@@ -31,7 +44,30 @@ import { useDialog } from '@/hooks/use-dialog'
 
 // hooks
 const { query, pageContentRef } = useSearch()
-const { myDialogRef, defaultInfo, showDialog, handleEdit } = useDialog()
+const { myDialogRef, defaultInfo, showDialog, handleEdit } = useDialog(
+  null,
+  editFn
+)
+
+// data
+const elTreeRef = ref(null)
+const permissionList = ref({})
+
+// vuex
+const store = useStore()
+const menuList = computed(() => store.state.entireMenu)
+
+function handleChangeCheck(list, data) {
+  const { checkedKeys, halfCheckedKeys } = data
+  permissionList.value = { checkedKeys, halfCheckedKeys }
+}
+
+function editFn(item) {
+  nextTick(async () => {
+    await nextTick()
+    elTreeRef.value.setCheckedKeys(item.permissionList.checkedKeys)
+  })
+}
 </script>
 
 <style lang="scss" scoped></style>
