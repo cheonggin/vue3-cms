@@ -1,6 +1,7 @@
 <template>
   <el-dialog v-model="dialogVisible" width="50%" center destroy-on-close>
     <MyForm v-model="formData" v-bind="formConfig"></MyForm>
+    <slot></slot>
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="dialogVisible = false">取消</el-button>
@@ -21,7 +22,8 @@ const formData = ref({})
 const props = defineProps({
   formConfig: { type: Object, required: true },
   defaultInfo: { type: Object, default: () => {} },
-  pageName: { type: String, require: true, default: '' }
+  pageName: { type: String, require: true, default: '' },
+  permissionList: { type: Object, default: () => {} }
 })
 defineExpose({ dialogVisible, formData })
 
@@ -45,14 +47,20 @@ function handleConfirm() {
     // 添加
     store.dispatch('main/createPageDataAction', {
       pageName: props.pageName,
-      addData: formData.value
+      addData: {
+        ...formData.value,
+        permissionList: { ...props.permissionList }
+      }
     })
   } else {
     // 修改
     store.dispatch('main/editPageDataAction', {
       pageName: props.pageName,
       id: props.defaultInfo._id,
-      editData: formData.value
+      editData: {
+        ...formData.value,
+        permissionList: { ...props.permissionList }
+      }
     })
   }
 }
