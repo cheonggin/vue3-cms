@@ -42,7 +42,6 @@
                 style="width: 100%"
                 :model-value="modelValue[`${item.field}`]"
                 @update:modelValue="handleValueChange($event, item.field)"
-                @change="handleChangeCascaderNode($event, item.field)"
               />
             </template>
 
@@ -77,14 +76,6 @@ const emits = defineEmits(['update:modelValue'])
 
 function handleValueChange(value, field) {
   emits('update:modelValue', { ...props.modelValue, [field]: value })
-}
-
-function handleChangeCascaderNode(value, field) {
-  let val = null
-  if (value) {
-    val = value.slice().pop()
-  }
-  emits('update:modelValue', { ...props.modelValue, [field]: val })
 }
 </script>
 
