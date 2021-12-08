@@ -23,43 +23,31 @@ const routes = [
         component: () => import('@/views/main/home/home.vue')
       },
       {
-        path: '/users',
-        name: 'user',
-        meta: ['用户管理', '用户列表'],
-        component: () => import('@/views/main/user/user.vue')
-      },
-      {
-        path: '/goods',
+        path: '/product/goods',
         name: 'goods',
         meta: ['商品管理', '商品列表'],
         component: () => import('@/views/main/product/goods/goods.vue')
       },
       {
-        path: '/categories',
+        path: '/product/category',
         name: 'category',
         meta: ['商品管理', '商品分类'],
         component: () => import('@/views/main/product/category/category.vue')
       },
       {
-        path: '/orders',
-        name: 'order',
-        meta: ['订单管理', '订单列表'],
-        component: () => import('@/views/main/order/order.vue')
-      },
-      {
-        path: '/roles',
+        path: '/system/role',
         name: 'role',
         meta: ['系统管理', '角色管理'],
         component: () => import('@/views/main/system/role/role.vue')
       },
       {
-        path: '/admin_users',
+        path: '/system/admin',
         name: 'admin',
         meta: ['系统管理', '管理员管理'],
         component: () => import('@/views/main/system/admin/admin.vue')
       },
       {
-        path: '/menu',
+        path: '/system/menu',
         name: 'menu',
         meta: ['系统管理', '菜单管理'],
         component: () => import('@/views/main/system/menu/menu.vue')

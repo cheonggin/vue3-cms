@@ -8,24 +8,27 @@ const loginModule = {
   state() {
     return {
       token: '',
-      userinfo: {}
+      userinfo: {},
+      userMenu: []
     }
   },
   mutations: {
-    initUserInfo(state, { token, userinfo }) {
+    initUserInfo(state, { token, userinfo, userMenu }) {
       state.token = token
       state.userinfo = userinfo
+      state.userMenu = userMenu
     }
   },
   actions: {
     async accountLoginAction({ commit }, account) {
       const {
-        data: { token, userinfo }
+        data: { token, userinfo, userMenu }
       } = await accountLoginRequest(account)
 
-      commit('initUserInfo', { token, userinfo })
+      commit('initUserInfo', { token, userinfo, userMenu })
       localCache.setCache('token', token)
       localCache.setCache('userinfo', userinfo)
+      localCache.setCache('userMenu', userMenu)
 
       router.push('/main')
     },
@@ -33,8 +36,9 @@ const loginModule = {
     loadLocalLogin({ commit }) {
       const token = localCache.getCache('token')
       const userinfo = localCache.getCache('userinfo')
+      const userMenu = localCache.getCache('userMenu')
       if (token) {
-        commit('initUserInfo', { token, userinfo })
+        commit('initUserInfo', { token, userinfo, userMenu })
       }
     }
   }
