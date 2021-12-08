@@ -6,6 +6,7 @@
       ref="pageContentRef"
       :query="query"
       :content-table-config="contentTableConfig"
+      :is-show-footer="false"
       page-name="menu"
       @edit="handleEdit"
     >
@@ -64,7 +65,7 @@ const formConfigRef = computed(() => {
         item1.label = item1.name
         item1.value = item1._id
 
-        if (item1.children.length > 0) {
+        if (item1.children && item1.children.length > 0) {
           item1.children.map(val => {
             val.label = val.name
             val.value = val._id
