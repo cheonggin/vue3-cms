@@ -8,7 +8,7 @@
     unique-opened
     router
   >
-    <el-menu-item index="/index">
+    <el-menu-item index="/index" class="home">
       <el-icon><home-filled /></el-icon>首页
     </el-menu-item>
     <el-sub-menu
@@ -72,5 +72,8 @@ defineProps({
 
 :deep(.el-menu-item) {
   padding-left: 50px !important;
+}
+.home {
+  padding-left: 20px !important;
 }
 </style>
