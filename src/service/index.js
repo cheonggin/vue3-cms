@@ -3,7 +3,7 @@ import http from './http'
 // 管理员登录
 export function accountLoginRequest(account) {
   return http.post({
-    url: '/rest/admins/login',
+    url: '/login',
     data: account
   })
 }
