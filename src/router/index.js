@@ -21,38 +21,43 @@ const routes = [
         name: 'index',
         meta: [],
         component: () => import('@/views/main/home/home.vue')
-      },
-      {
-        path: '/product/goods',
-        name: 'goods',
-        meta: ['商品管理', '商品列表'],
-        component: () => import('@/views/main/product/goods/goods.vue')
-      },
-      {
-        path: '/product/category',
-        name: 'category',
-        meta: ['商品管理', '商品分类'],
-        component: () => import('@/views/main/product/category/category.vue')
-      },
-      {
-        path: '/system/role',
-        name: 'role',
-        meta: ['系统管理', '角色管理'],
-        component: () => import('@/views/main/system/role/role.vue')
-      },
-      {
-        path: '/system/admin',
-        name: 'admin',
-        meta: ['系统管理', '管理员管理'],
-        component: () => import('@/views/main/system/admin/admin.vue')
-      },
-      {
-        path: '/system/menu',
-        name: 'menu',
-        meta: ['系统管理', '菜单管理'],
-        component: () => import('@/views/main/system/menu/menu.vue')
       }
+      // {
+      //   path: '/product/goods',
+      //   name: 'goods',
+      //   meta: ['商品管理', '商品列表'],
+      //   component: () => import('@/views/main/product/goods/goods.vue')
+      // },
+      // {
+      //   path: '/product/category',
+      //   name: 'category',
+      //   meta: ['商品管理', '商品分类'],
+      //   component: () => import('@/views/main/product/category/category.vue')
+      // },
+      // {
+      //   path: '/system/role',
+      //   name: 'role',
+      //   meta: ['系统管理', '角色管理'],
+      //   component: () => import('@/views/main/system/role/role.vue')
+      // },
+      // {
+      //   path: '/system/admin',
+      //   name: 'admin',
+      //   meta: ['系统管理', '管理员管理'],
+      //   component: () => import('@/views/main/system/admin/admin.vue')
+      // },
+      // {
+      //   path: '/system/menu',
+      //   name: 'menu',
+      //   meta: ['系统管理', '菜单管理'],
+      //   component: () => import('@/views/main/system/menu/menu.vue')
+      // }
     ]
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'notFound',
+    component: () => import('@/views/not-found/not-found.vue')
   }
 ]
 

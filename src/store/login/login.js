@@ -2,6 +2,7 @@ import router from '@/router'
 
 import { accountLoginRequest } from '@/service'
 import localCache from '@/utils/cache'
+import { mapRouterMenu } from '@/utils/map-menu'
 
 const loginModule = {
   namespaced: true,
@@ -17,6 +18,11 @@ const loginModule = {
       state.token = token
       state.userinfo = userinfo
       state.userMenu = userMenu
+
+      const routes = mapRouterMenu(userMenu)
+      routes.forEach(route => {
+        router.addRoute('main', route)
+      })
     }
   },
   actions: {
