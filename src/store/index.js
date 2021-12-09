@@ -42,13 +42,10 @@ const store = createStore({
         pageSize: 1000
       })
 
-      // // 获取菜单列表
+      // 获取菜单列表
       const {
         data: { list: menuList }
-      } = await getPageListData('/menu/list', {
-        currentPage: 1,
-        pageSize: 1000
-      })
+      } = await getPageListData('/menu/list')
 
       commit('changeEntireRole', roleList)
       commit('changeEntireCategory', categoryList)
