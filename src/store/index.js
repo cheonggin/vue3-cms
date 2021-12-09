@@ -58,7 +58,6 @@ const store = createStore({
 
 export function setupStore() {
   store.dispatch('login/loadLocalLogin')
-  store.dispatch('initDataAction')
 }
 
 export default store
