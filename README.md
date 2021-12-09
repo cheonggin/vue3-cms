@@ -1,6 +1,6 @@
 # vue3-cms
 
-基于 Vite + Vue3 + Element Plus实现的后台管理系统。[线上地址](http://110.42.208.8:5001)
+基于 Vite + Vue3 + Element Plus实现的后台管理系统。[线上地址](https://doc.zhanggin.work)
 
 所有的数据都是从服务器实时获取的真实数据，具有真实的注册、登陆、管理数据、权限验证等功能。
 
