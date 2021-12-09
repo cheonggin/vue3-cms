@@ -29,6 +29,12 @@ export const formConfig = {
       placeholder: '请输入路由地址'
     },
     {
+      field: 'component',
+      label: '组件名称',
+      type: 'input',
+      placeholder: '请输入组件名称'
+    },
+    {
       field: 'icon',
       label: '图标',
       type: 'input',
