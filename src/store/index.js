@@ -3,6 +3,9 @@ import { createStore, createLogger } from 'vuex'
 import login from './login/login'
 import main from './main/main'
 
+import { getTreeData } from '@/utils/map-menu'
+import localCache from '@/utils/cache'
+
 const isProd = import.meta.env.mode === 'production'
 
 const store = createStore({
@@ -44,12 +47,26 @@ const store = createStore({
 
       // 获取菜单列表
       const {
-        data: { list: menuList }
+        data: { list }
       } = await getPageListData('/menu/list')
+      const menuList = getTreeData(list)
 
       commit('changeEntireRole', roleList)
       commit('changeEntireCategory', categoryList)
       commit('changeEntireMenu', menuList)
+
+      localCache.setCache('roleList', roleList)
+      localCache.setCache('categoryList', categoryList)
+      localCache.setCache('menuList', menuList)
+    },
+    loadDataList({ commit }) {
+      const roleList = localCache.getCache('roleList')
+      const categoryList = localCache.getCache('categoryList')
+      const menuList = localCache.getCache('menuList')
+
+      roleList && commit('changeEntireRole', roleList)
+      categoryList && commit('changeEntireCategory', categoryList)
+      menuList && commit('changeEntireMenu', menuList)
     }
   },
   modules: { login, main },
