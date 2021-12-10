@@ -4,7 +4,7 @@ export function useDialog(addFn, editFn) {
   const myDialogRef = ref(null)
   const defaultInfo = ref({})
 
-  function showDialog() {
+  function handleCreate() {
     addFn && addFn()
     defaultInfo.value = {}
     myDialogRef.value.dialogVisible = true
@@ -16,5 +16,5 @@ export function useDialog(addFn, editFn) {
     myDialogRef.value.dialogVisible = true
   }
 
-  return { myDialogRef, defaultInfo, showDialog, handleEdit }
+  return { myDialogRef, defaultInfo, handleCreate, handleEdit }
 }
