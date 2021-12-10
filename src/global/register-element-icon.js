@@ -1,6 +1,6 @@
-import { Goods, Setting } from '@element-plus/icons'
+import { Goods, Setting, Plus } from '@element-plus/icons'
 
-const icons = [Goods, Setting]
+const icons = [Goods, Setting, Plus]
 
 export default function (app) {
   for (const icon of icons) {

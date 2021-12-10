@@ -1,13 +1,15 @@
 <template>
   <el-card>
-    <MySearch v-model="query" title="添加菜单" @add="showDialog" />
+    <MySearch v-model="query" />
 
     <PageContent
       ref="pageContentRef"
       :query="query"
       :content-table-config="contentTableConfig"
       :is-show-footer="false"
+      title="添加菜单"
       page-name="menu"
+      @add="handleCreate"
       @edit="handleEdit"
     >
       <template #type="scope">
@@ -47,7 +49,7 @@ import { useSearch } from '@/hooks/use-search'
 import { useDialog } from '@/hooks/use-dialog'
 
 const { query, pageContentRef } = useSearch()
-const { myDialogRef, defaultInfo, showDialog, handleEdit } = useDialog()
+const { myDialogRef, defaultInfo, handleCreate, handleEdit } = useDialog()
 
 // vuex
 const store = useStore()

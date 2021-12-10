@@ -1,12 +1,14 @@
 <template>
   <el-card>
-    <MySearch v-model="query" title="添加角色" @add="showDialog" />
+    <MySearch v-model="query" />
 
     <PageContent
       ref="pageContentRef"
       :query="query"
+      title="添加角色"
       :content-table-config="contentTableConfig"
       page-name="role"
+      @add="handleCreate"
       @edit="handleEdit"
     />
 
@@ -44,7 +46,7 @@ import { useDialog } from '@/hooks/use-dialog'
 
 // hooks
 const { query, pageContentRef } = useSearch()
-const { myDialogRef, defaultInfo, showDialog, handleEdit } = useDialog(
+const { myDialogRef, defaultInfo, handleCreate, handleEdit } = useDialog(
   null,
   editFn
 )

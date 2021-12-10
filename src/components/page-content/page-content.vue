@@ -6,6 +6,12 @@
     :table-data="tableData"
     :total="total"
   >
+    <template #header>
+      <el-button type="primary" icon="Plus" @click="handleClickAdd">
+        {{ title }}
+      </el-button>
+    </template>
+
     <template #created="scope">
       {{ $filter.formatTime(scope.row.created) }}
     </template>
@@ -22,6 +28,7 @@
         circle
         @click="handleEdit(scope.row)"
       ></el-button>
+
       <el-popconfirm
         title="确定删除该数据吗？"
         @confirm="handleDelete(scope.row._id)"
@@ -50,14 +57,16 @@ import { useStore } from 'vuex'
 import { Edit, Delete } from '@element-plus/icons'
 
 import MyTable from '@/base-ui/table/table.vue'
+
 import { debounce } from '@/utils/debounce'
 
 const props = defineProps({
+  title: { type: String, default: '添加' },
   contentTableConfig: { type: Object, required: true, default: () => {} },
   pageName: { type: String, required: true },
   query: { type: String, default: '' }
 })
-const emits = defineEmits(['edit'])
+const emits = defineEmits(['add', 'edit'])
 defineExpose({ getPageData })
 
 const state = reactive({
@@ -105,6 +114,10 @@ function getPageData(queryInfo) {
     pageName: props.pageName,
     queryInfo: { pageSize: 5, currentPage: 1, ...queryInfo }
   })
+}
+
+function handleClickAdd() {
+  emits('add')
 }
 
 function handleDelete(id) {

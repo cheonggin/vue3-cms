@@ -1,13 +1,15 @@
 <template>
   <el-card>
-    <MySearch v-model="query" title="添加商品" @add="showDialog" />
+    <MySearch v-model="query" />
 
     <PageContent
       ref="pageContentRef"
       :query="query"
       :content-table-config="contentTableConfig"
       page-name="goods"
+      title="添加商品"
       @edit="handleEdit"
+      @add="handleCreate"
     >
       <template #parent="scope">{{ scope.row.parent.name }}</template>
       <template #link="scope">
@@ -43,7 +45,7 @@ import { useSearch } from '@/hooks/use-search'
 import { useDialog } from '@/hooks/use-dialog'
 
 const { query, pageContentRef } = useSearch()
-const { myDialogRef, defaultInfo, showDialog, handleEdit } = useDialog()
+const { myDialogRef, defaultInfo, handleCreate, handleEdit } = useDialog()
 
 // vuex
 const store = useStore()

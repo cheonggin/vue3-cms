@@ -1,4 +1,7 @@
 <template>
+  <div class="header">
+    <slot name="header"></slot>
+  </div>
   <el-table
     border
     :data="tableData"
@@ -77,7 +80,7 @@ defineProps({
   }
 })
 
-const emits = defineEmits(['update:pageSize', 'update:currentPage'])
+const emits = defineEmits(['update:pageSize', 'update:currentPage', 'add'])
 
 function handleSizeChange(pageSize) {
   emits('update:pageSize', pageSize)
@@ -89,6 +92,9 @@ function handleCurrentChange(currentPage) {
 </script>
 
 <style lang="scss" scoped>
+.header {
+  margin-top: 15px;
+}
 .el-table {
   margin: 15px 0;
 }

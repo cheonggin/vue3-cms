@@ -1,13 +1,15 @@
 <template>
   <el-card>
-    <MySearch v-model="query" title="添加管理员" @add="showDialog" />
+    <MySearch v-model="query" />
 
     <PageContent
       ref="pageContentRef"
+      title="添加管理员"
       :query="query"
       :content-table-config="contentTableConfig"
       page-name="admin"
       @edit="handleEdit"
+      @add="handleCreate"
     >
       <template #roleId="scope">
         {{ scope.row.roleId.name }}
@@ -24,6 +26,7 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import { useStore } from 'vuex'
 
 import MySearch from '@/components/search/search.vue'
@@ -34,10 +37,9 @@ import { contentTableConfig } from './config/table.config'
 import { formConfig } from './config/form.config'
 import { useSearch } from '@/hooks/use-search'
 import { useDialog } from '@/hooks/use-dialog'
-import { computed } from 'vue-demi'
 
 const { query, pageContentRef } = useSearch()
-const { myDialogRef, defaultInfo, showDialog, handleEdit } = useDialog(
+const { myDialogRef, defaultInfo, handleCreate, handleEdit } = useDialog(
   addFn,
   editFn
 )
