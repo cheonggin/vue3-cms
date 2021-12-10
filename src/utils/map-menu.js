@@ -25,19 +25,36 @@ export function getTreeData(data) {
   return parents
 }
 
+function getComponents() {
+  const components = import.meta.globEager('../views/main/**/*.vue')
+  // 过滤main.vue和home.vue文件
+  delete components['../views/main/main.vue']
+  delete components['../views/main/home/home.vue']
+
+  return components
+}
+
+function resolveComponent(path, name) {
+  const components = getComponents()
+  const importPage = components[`../views/main${path}/${name}.vue`]
+
+  return importPage.default
+}
+
 export function mapRouterMenu(list) {
   const data = []
+
   list.forEach(item => {
     item.children.forEach(value => {
       const route = {
         path: value.path,
         name: value.component,
         meta: [item.name, value.name],
-        component: () =>
-          import(`../views/main${value.path}/${value.component}.vue`)
+        component: resolveComponent(value.path, value.component)
       }
       data.push(route)
     })
   })
+
   return data
 }
