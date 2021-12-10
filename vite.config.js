@@ -26,5 +26,32 @@ export default defineConfig({
         rewrite: path => path.replace(/^\/api/, '')
       }
     }
+  },
+  css: {
+    preprocessorOptions: { scss: { charset: false } },
+    charset: false,
+    postcss: {
+      plugins: [
+        {
+          postcssPlugin: 'internal:charset-removal',
+          AtRule: {
+            charset: atRule => {
+              if (atRule.name === 'charset') {
+                atRule.remove()
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  build: {
+    minify: 'terser', // 'terser' 相对较慢，但大多数情况下构建后的文件体积更小。'esbuild' 最小化混淆更快但构建后的文件相对更大
+    terserOptions: {
+      compress: {
+        drop_console: true,
+        drop_debugger: true
+      }
+    }
   }
 })
