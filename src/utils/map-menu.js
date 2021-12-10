@@ -58,3 +58,20 @@ export function mapRouterMenu(list) {
 
   return data
 }
+
+export function getButtonPermission(list) {
+  const permissions = []
+
+  function _recurseGetPermission(menus) {
+    for (const item of menus) {
+      if (item.type === 1) {
+        _recurseGetPermission(item.children || [])
+      } else if (item.type === 2) {
+        permissions.push(item.menuCode)
+      }
+    }
+  }
+
+  _recurseGetPermission(list)
+  return permissions
+}

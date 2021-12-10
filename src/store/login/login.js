@@ -2,7 +2,11 @@ import router from '@/router'
 
 import { accountLoginRequest } from '@/service'
 import localCache from '@/utils/cache'
-import { getTreeData, mapRouterMenu } from '@/utils/map-menu'
+import {
+  getTreeData,
+  mapRouterMenu,
+  getButtonPermission
+} from '@/utils/map-menu'
 
 const loginModule = {
   namespaced: true,
@@ -10,7 +14,8 @@ const loginModule = {
     return {
       token: '',
       userinfo: {},
-      userMenu: []
+      userMenu: [],
+      userButtonPermission: []
     }
   },
   mutations: {
@@ -19,10 +24,15 @@ const loginModule = {
       state.userinfo = userinfo
       state.userMenu = userMenu
 
+      // 注册动态路由
       const routes = mapRouterMenu(userMenu)
       routes.forEach(route => {
         router.addRoute('main', route)
       })
+
+      // 获取用户对应的按钮权限
+      const userButtonPermission = getButtonPermission(userMenu)
+      state.userButtonPermission = userButtonPermission
     }
   },
   actions: {

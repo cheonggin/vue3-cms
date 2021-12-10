@@ -7,7 +7,12 @@
     :total="total"
   >
     <template #header>
-      <el-button type="primary" icon="Plus" @click="handleClickAdd">
+      <el-button
+        v-if="isCreate"
+        type="primary"
+        icon="Plus"
+        @click="handleClickAdd"
+      >
         {{ title }}
       </el-button>
     </template>
@@ -22,6 +27,7 @@
 
     <template #operate="scope">
       <el-button
+        v-if="isEdit"
         type="primary"
         :icon="Edit"
         size="mini"
@@ -30,6 +36,7 @@
       ></el-button>
 
       <el-popconfirm
+        v-if="isDelete"
         title="确定删除该数据吗？"
         @confirm="handleDelete(scope.row._id)"
       >
@@ -59,6 +66,7 @@ import { Edit, Delete } from '@element-plus/icons'
 import MyTable from '@/base-ui/table/table.vue'
 
 import { debounce } from '@/utils/debounce'
+import { usePermission } from '@/hooks/use-permission'
 
 const props = defineProps({
   title: { type: String, default: '添加' },
@@ -68,6 +76,9 @@ const props = defineProps({
 })
 const emits = defineEmits(['add', 'edit'])
 defineExpose({ getPageData })
+
+// hooks
+const { isCreate, isEdit, isDelete } = usePermission(props.pageName)
 
 const state = reactive({
   queryInfo: {
