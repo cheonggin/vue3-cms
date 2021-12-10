@@ -2,7 +2,7 @@ import router from '@/router'
 
 import { accountLoginRequest } from '@/service'
 import localCache from '@/utils/cache'
-import { mapRouterMenu } from '@/utils/map-menu'
+import { getTreeData, mapRouterMenu } from '@/utils/map-menu'
 
 const loginModule = {
   namespaced: true,
@@ -30,11 +30,12 @@ const loginModule = {
       const {
         data: { token, userinfo, userMenu }
       } = await accountLoginRequest(account)
+      const userMenuTree = getTreeData(userMenu)
 
-      commit('initUserInfo', { token, userinfo, userMenu })
+      commit('initUserInfo', { token, userinfo, userMenu: userMenuTree })
       localCache.setCache('token', token)
       localCache.setCache('userinfo', userinfo)
-      localCache.setCache('userMenu', userMenu)
+      localCache.setCache('userMenu', userMenuTree)
 
       // 获取token后，请求完整的角色列表、分类列表、菜单列表等
       dispatch('initDataAction', null, { root: true })

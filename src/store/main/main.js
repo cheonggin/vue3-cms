@@ -6,6 +6,7 @@ import {
   createPageData,
   editPageData
 } from '@/service'
+import { getTreeData } from '@/utils/map-menu'
 
 const mainModule = {
   namespaced: true,
@@ -72,7 +73,13 @@ const mainModule = {
       const changePageName =
         pageName.slice(0, 1).toUpperCase() + pageName.slice(1)
 
-      commit(`change${changePageName}Data`, { total, list })
+      if (pageName === 'menu') {
+        const result = getTreeData(list)
+
+        commit(`change${changePageName}Data`, { total, list: result })
+      } else {
+        commit(`change${changePageName}Data`, { total, list })
+      }
     },
     async deletePageDataAction({ dispatch }, payload) {
       // 获取url
