@@ -1,10 +1,11 @@
 import { defineStore } from 'pinia'
 
+import type { ILoginAccount } from '@/service/type'
+import type { LoginStatus } from '../login/type'
+
 import router from '@/router'
 import { loginAccount } from '@/service'
 import { localCache } from '@/utils/cache'
-import type { ILoginAccount } from '@/service/type'
-import type { LoginStatus } from './type'
 
 const useLoginStore = defineStore('login', {
   state: (): LoginStatus => {

@@ -5,9 +5,8 @@
 </template>
 
 <script setup lang="ts">
-import { ElConfigProvider } from 'element-plus'
 import zhCn from 'element-plus/lib/locale/lang/zh-cn'
-import { useLoginStore } from '@/store/login'
+import { useLoginStore } from '@/store/login/login'
 
 const loginStore = useLoginStore()
 loginStore.loadLocalLogin()
