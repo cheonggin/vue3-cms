@@ -10,6 +10,7 @@
     "commit": "cz"
   },
   "dependencies": {
+    "@element-plus/icons-vue": "^0.2.7",
     "axios": "^0.26.0",
     "element-plus": "^2.0.2",
     "normalize.css": "^8.0.1",

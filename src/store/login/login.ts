@@ -1,11 +1,13 @@
 import { defineStore } from 'pinia'
 
 import type { ILoginAccount } from '@/service/type'
-import type { LoginStatus } from '../login/type'
+import type { LoginStatus } from './type'
+import type { IMenuList } from '@/components/nav-menu'
 
 import router from '@/router'
-import { loginAccount } from '@/service'
+import { loginAccount, getMenuList } from '@/service'
 import { localCache } from '@/utils/cache'
+import { getTreeData } from '@/utils/map-menu'
 
 const useLoginStore = defineStore('login', {
   state: (): LoginStatus => {
@@ -14,7 +16,8 @@ const useLoginStore = defineStore('login', {
       user: {
         name: '',
         id: 0
-      }
+      },
+      userMenu: []
     }
   },
 
@@ -29,6 +32,9 @@ const useLoginStore = defineStore('login', {
       localCache.setCache('token', token)
       localCache.setCache('user', user)
 
+      // 登录成功后获取菜单列表
+      this.getMenuListAction()
+
       router.push('/main')
     },
 
@@ -36,9 +42,18 @@ const useLoginStore = defineStore('login', {
     loadLocalLogin() {
       const token = localCache.getCache('token')
       const user = localCache.getCache('user')
+      const userMenu = localCache.getCache('userMenu')
 
       this.token = token
       this.user = user
+      this.userMenu = userMenu
+    },
+
+    async getMenuListAction() {
+      const menuResult = await getMenuList()
+      const data = menuResult.data as IMenuList[]
+      this.userMenu = getTreeData(data)
+      localCache.setCache('userMenu', this.userMenu)
     }
   }
 })

@@ -8,3 +8,9 @@ export function loginAccount(data: ILoginAccount) {
     method: 'post'
   })
 }
+
+export function getMenuList() {
+  return http.get({
+    url: '/menu'
+  })
+}

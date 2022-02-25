@@ -2,7 +2,8 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
-    node: true
+    node: true,
+    'vue/setup-compiler-macros': true
   },
   extends: ['plugin:vue/essential', 'standard', 'plugin:prettier/recommended'],
   parserOptions: {
@@ -13,6 +14,8 @@ module.exports = {
   plugins: ['vue', '@typescript-eslint'],
   rules: {
     'vue/no-multiple-template-root': 'off',
-    'vue/multi-word-component-names': 'off'
+    'vue/multi-word-component-names': 'off',
+    camelcase: 'off',
+    'array-callback-return': 'off'
   }
 }
