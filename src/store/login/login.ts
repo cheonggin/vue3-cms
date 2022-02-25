@@ -7,7 +7,7 @@ import type { IMenuList } from '@/components/nav-menu'
 import router from '@/router'
 import { loginAccount, getMenuList } from '@/service'
 import { localCache } from '@/utils/cache'
-import { getTreeData } from '@/utils/map-menu'
+import { getTreeData, mapRouterMenu } from '@/utils/map-menu'
 
 const useLoginStore = defineStore('login', {
   state: (): LoginStatus => {
@@ -32,10 +32,18 @@ const useLoginStore = defineStore('login', {
       localCache.setCache('token', token)
       localCache.setCache('user', user)
 
-      // 登录成功后获取菜单列表
-      this.getMenuListAction()
+      await this.getMenuListAction()
+      this.loadRoutes()
 
       router.push('/main')
+    },
+
+    // 获取菜单列表
+    async getMenuListAction() {
+      const menuResult = await getMenuList()
+      const data = menuResult.data as IMenuList[]
+      this.userMenu = getTreeData(data)
+      localCache.setCache('userMenu', this.userMenu)
     },
 
     // 加载localStorage中存储的信息，处理页面刷新数据丢失
@@ -47,13 +55,18 @@ const useLoginStore = defineStore('login', {
       this.token = token
       this.user = user
       this.userMenu = userMenu
+
+      if (this.userMenu) {
+        this.loadRoutes()
+      }
     },
 
-    async getMenuListAction() {
-      const menuResult = await getMenuList()
-      const data = menuResult.data as IMenuList[]
-      this.userMenu = getTreeData(data)
-      localCache.setCache('userMenu', this.userMenu)
+    // 根据菜单列表动态加载路由
+    loadRoutes() {
+      const routes = mapRouterMenu(this.userMenu)
+      for (const route of routes) {
+        router.addRoute('main', route)
+      }
     }
   }
 })

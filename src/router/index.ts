@@ -18,38 +18,6 @@ const routes: RouteRecordRaw[] = [
         path: '/index',
         name: 'index',
         component: () => import('@/views/main/home/home.vue')
-      },
-      {
-        path: '/product/goods',
-        name: 'goods',
-        meta: { breadcrumbList: [{ name: '商品管理' }, { name: '商品列表' }] },
-        component: () => import('@/views/main/product/goods/goods.vue')
-      },
-      {
-        path: '/product/category',
-        name: 'category',
-        meta: { breadcrumbList: [{ name: '商品管理' }, { name: '商品分类' }] },
-        component: () => import('@/views/main/product/category/category.vue')
-      },
-      {
-        path: '/system/role',
-        name: 'role',
-        meta: { breadcrumbList: [{ name: '系统管理' }, { name: '角色管理' }] },
-        component: () => import('@/views/main/system/role/role.vue')
-      },
-      {
-        path: '/system/admin',
-        name: 'admin',
-        meta: {
-          breadcrumbList: [{ name: '系统管理' }, { name: '管理员管理' }]
-        },
-        component: () => import('@/views/main/system/admin/admin.vue')
-      },
-      {
-        path: '/system/menu',
-        name: 'menu',
-        meta: { breadcrumbList: [{ name: '系统管理' }, { name: '菜单管理' }] },
-        component: () => import('@/views/main/system/menu/menu.vue')
       }
     ]
   },
