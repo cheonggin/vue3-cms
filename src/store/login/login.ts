@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import type { ILoginAccount } from '@/service/type'
 import type { LoginStatus } from './type'
 import type { IMenuList } from '@/components/nav-menu'
+import type { IResultDataType } from '../main/types/main.type'
 
 import router from '@/router'
 import { loginAccount, getMenuList } from '@/service'
@@ -40,9 +41,15 @@ const useLoginStore = defineStore('login', {
 
     // 获取菜单列表
     async getMenuListAction() {
-      const menuResult = await getMenuList()
-      const data = menuResult.data as IMenuList[]
-      this.userMenu = getTreeData(data)
+      const { data }: IResultDataType = await getMenuList({
+        query: '',
+        offset: 0,
+        limit: 1000
+      })
+      const list = data.rows as IMenuList[]
+
+      this.userMenu = getTreeData(list)
+
       localCache.setCache('userMenu', this.userMenu)
     },
 
