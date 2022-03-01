@@ -1,9 +1,11 @@
 import axios from 'axios'
 import { ElLoading, ElMessage } from 'element-plus'
+
 import type { AxiosInstance, AxiosError } from 'axios'
 import type { LoadingInstance } from 'element-plus/lib/components/loading/src/loading'
+import type { HttpConfig, HttpInterceptors } from './type'
 
-import { HttpConfig, HttpInterceptors } from './type'
+import router from '@/router'
 
 class Http {
   instance: AxiosInstance
@@ -50,8 +52,15 @@ class Http {
         this.loading?.close()
 
         if (err.response) {
-          if (err.response.data.msg) {
-            ElMessage({ message: err.response.data.msg, type: 'error' })
+          if (err.response.data.message) {
+            switch (err.response.status) {
+              case 401:
+                ElMessage({ message: err.response.data.message, type: 'error' })
+                router.push('/login')
+                break
+              default:
+                ElMessage({ message: err.response.data.message, type: 'error' })
+            }
           }
         }
 
