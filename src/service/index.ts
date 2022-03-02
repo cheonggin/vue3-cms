@@ -1,16 +1,13 @@
 import http from './http'
-import type { ILoginAccount } from './type'
+import type { IDataType, ILoginAccount, IQueryInfo } from './type'
 
 export function loginAccount(data: ILoginAccount) {
-  return http.request({
+  return http.post<IDataType>({
     url: '/login/admin',
-    data,
-    method: 'post'
+    data
   })
 }
 
-export function getMenuList() {
-  return http.get({
-    url: '/menu'
-  })
+export function getPageList(url: string, queryInfo: IQueryInfo) {
+  return http.get<IDataType>({ url, params: queryInfo })
 }
