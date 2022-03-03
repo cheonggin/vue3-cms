@@ -41,6 +41,11 @@
         </template>
       </el-popconfirm>
     </template>
+
+    <!-- 动态插入其它的插槽 -->
+    <template v-for="item in otherSlots" :key="item.prop" #[item.prop]="scope">
+      <slot :name="item.prop" :row="scope.row"></slot>
+    </template>
   </MyTable>
 </template>
 
@@ -66,6 +71,14 @@ const queryInfo = reactive({
   offset: 1,
   limit: 10
 })
+// 获取除create_at、update_at、operate外的其它插槽
+const otherSlots = props.tableConfig.tableColumn.filter(item => {
+  if (item.prop === 'create_at') return false
+  if (item.prop === 'update_at') return false
+  if (item.prop === 'operate') return false
+  return true
+})
+
 const mainStore = useMainStore()
 
 async function getPageData(query: string) {
