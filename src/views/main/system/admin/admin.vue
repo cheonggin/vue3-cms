@@ -3,33 +3,33 @@
     <PageSearch v-model="query" @search="onSearch" @clear="onClear" />
     <PageContent
       ref="pageContentRef"
-      :tableConfig="tableConfig"
+      v-bind="contentConfig"
       :query="query"
-      pageName="admin"
-      title="管理员列表"
-      text="添加管理员"
       @add="showAddDialog"
       @edit="showEditDialog"
-    />
+    >
+      <template #role_id="scope">
+        {{ scope.row.role.name }}
+      </template>
+    </PageContent>
     <PageDialog
       ref="pageDialogRef"
-      :formConfig="formConfig"
-      tip="管理员"
-      pageName="admin"
+      v-bind="dialogConfig"
       :defaultInfo="defaultInfo"
-      @confirm="handleConfirm"
     />
   </el-card>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+
 import PageSearch from '@/components/page-search'
 import PageContent from '@/components/page-content'
 import PageDialog from '@/components/page-dialog'
 
 import usePageSearch from '@/hooks/use-page-search'
 import usePageContent from '@/hooks/use-page-content'
-import usePageDialog from '@/hooks/use-page-dialog'
+import { useLoginStore } from '@/store/login/login'
 
 import { tableConfig } from './config/table.config'
 import { formConfig } from './config/form.config'
@@ -38,7 +38,31 @@ import { formConfig } from './config/form.config'
 const { query, pageContentRef, onSearch, onClear } = usePageSearch()
 const { pageDialogRef, defaultInfo, showAddDialog, showEditDialog } =
   usePageContent(addCallback, editCallback)
-const { handleConfirm } = usePageDialog(query.value)
+
+const loginStore = useLoginStore()
+
+const formConfigRef = computed(() => {
+  const roleItem = formConfig.formData.find(item => item.field === 'role_id')
+  roleItem!.options = loginStore.entireRole.map(item => {
+    return {
+      label: item.name,
+      id: item.id
+    }
+  })
+  return formConfig
+})
+
+const contentConfig = {
+  pageName: 'admin',
+  title: '管理员列表',
+  text: '添加管理员',
+  tableConfig
+}
+const dialogConfig = {
+  pageName: 'admin',
+  tip: '管理员',
+  formConfig: formConfigRef.value
+}
 
 // 处理新建对话框中密码框的显示
 function addCallback() {
