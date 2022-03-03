@@ -17,6 +17,7 @@ module.exports = {
     'vue/multi-word-component-names': 'off',
     camelcase: 'off',
     'array-callback-return': 'off',
-    'vue/no-v-for-template-key': 'off'
+    'vue/no-v-for-template-key': 'off',
+    'vue/no-v-model-argument': 'off'
   }
 }
