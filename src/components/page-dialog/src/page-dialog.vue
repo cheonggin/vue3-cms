@@ -32,7 +32,6 @@ const props = defineProps({
   formConfig: { type: Object as PropType<IFormConfig>, default: () => {} },
   pageName: { type: String, require: true, default: '' }
 })
-const emits = defineEmits(['confirm'])
 const isShowDialog = ref(false)
 const formModel = ref<any>({})
 const title = ref('')
@@ -67,8 +66,6 @@ async function handleConfirm() {
     // 添加
     await mainStore.addPageDataAction(props.pageName, formModel.value)
   }
-
-  emits('confirm')
 }
 
 defineExpose({ isShowDialog, formModel })

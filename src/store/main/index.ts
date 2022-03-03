@@ -47,6 +47,8 @@ const useMainStore = defineStore('main', {
 
       if (result.msg === 'success') {
         ElMessage.success('修改成功')
+
+        this.getPageListAction(pageName, { query: '', offset: 0, limit: 10 })
       }
     },
 
@@ -56,6 +58,8 @@ const useMainStore = defineStore('main', {
 
       if (result.msg === 'success') {
         ElMessage.success('删除成功')
+
+        this.getPageListAction(pageName, { query: '', offset: 0, limit: 10 })
       }
     }
   }
