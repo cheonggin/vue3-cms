@@ -1,4 +1,4 @@
-type IFormType = 'input' | 'password'
+type IFormType = 'input' | 'password' | 'select'
 type IFormPosition = 'left' | 'right' | 'top'
 
 export interface IFormItem {
@@ -9,6 +9,8 @@ export interface IFormItem {
   type: IFormType
   placeholder?: string
   isHidden?: boolean
+  // 选择框的可选项
+  options?: any[]
 }
 
 export interface IFormConfig {

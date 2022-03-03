@@ -13,6 +13,24 @@
                 @update:model-value="handleValueChange($event, item.field)"
               />
             </template>
+
+            <!-- 选择器 -->
+            <template v-else-if="item.type === 'select'">
+              <el-select
+                clearable
+                :placeholder="item.placeholder"
+                :model-value="modelValue[`${item.field}`]"
+                @update:model-value="handleValueChange($event, item.field)"
+              >
+                <el-option
+                  v-for="value in item.options"
+                  :key="value.id"
+                  :label="value.label"
+                  :value="value.id"
+                >
+                </el-option>
+              </el-select>
+            </template>
           </el-form-item>
         </el-col>
       </template>
