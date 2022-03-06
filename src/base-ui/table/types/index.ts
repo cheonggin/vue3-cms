@@ -11,5 +11,7 @@ export interface ITableColumn {
 }
 
 export interface ITableConfig {
+  isShowIndex?: boolean
+  isShowFooter?: boolean
   tableColumn: ITableColumn[]
 }
