@@ -1,4 +1,4 @@
-type IFormType = 'input' | 'password' | 'select'
+type IFormType = 'input' | 'password' | 'select' | 'radio' | 'cascader'
 type IFormPosition = 'left' | 'right' | 'top'
 
 export interface IFormItem {

@@ -31,6 +31,35 @@
                 </el-option>
               </el-select>
             </template>
+
+            <!-- 单选框 -->
+            <template
+              v-else-if="item.type === 'radio'"
+              v-for="value in item.options"
+              :key="value.label"
+            >
+              <el-radio
+                :model-value="modelValue[`${item.field}`]"
+                @update:model-value="handleValueChange($event, item.field)"
+                :label="value.label"
+                size="large"
+              >
+                {{ value.text }}
+              </el-radio>
+            </template>
+
+            <!-- 级联选择器 -->
+            <template v-else-if="item.type === 'cascader'">
+              <el-cascader
+                :options="item.options"
+                :props="{ checkStrictly: true, label: 'name', value: 'id' }"
+                :placeholder="item.placeholder"
+                :model-value="modelValue[`${item.field}`]"
+                @update:model-value="handleValueChange($event, item.field)"
+                @change="handleChangeCascaderNode($event, item.field)"
+                clearable
+              />
+            </template>
           </el-form-item>
         </el-col>
       </template>
@@ -57,6 +86,14 @@ const emits = defineEmits(['update:modelValue'])
 
 function handleValueChange(value: any, field: string) {
   emits('update:modelValue', { ...props.modelValue, [field]: value })
+}
+
+function handleChangeCascaderNode(value: any, field: string) {
+  let val = null
+  if (value) {
+    val = value.slice().pop()
+  }
+  emits('update:modelValue', { ...props.modelValue, [field]: val })
 }
 </script>
 
