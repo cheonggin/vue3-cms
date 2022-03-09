@@ -10,12 +10,15 @@ import {
   deletePageData
 } from '@/service'
 import { ElMessage } from 'element-plus'
+import { getTreeData } from '@/utils/map-menu'
 
 const useMainStore = defineStore('main', {
   state: (): IMainState => {
     return {
       adminList: [],
-      adminTotal: 0
+      adminTotal: 0,
+      menuList: [],
+      menuTotal: 0
     }
   },
   getters: {
@@ -28,7 +31,13 @@ const useMainStore = defineStore('main', {
       const url = `/${pageName}`
       const result = await getPageList(url, queryInfo)
 
-      this[`${pageName}List` as keyof IMainState] = result.data.rows
+      if (pageName === 'menu') {
+        const list = getTreeData(result.data.rows)
+        this[`${pageName}List` as keyof IMainState] = list
+      } else {
+        this[`${pageName}List` as keyof IMainState] = result.data.rows
+      }
+
       this[`${pageName}Total` as keyof IMainState] = result.data.count
     },
 
@@ -38,6 +47,8 @@ const useMainStore = defineStore('main', {
 
       if (result.msg === 'success') {
         ElMessage.success('添加成功')
+
+        this.getPageListAction(pageName, { query: '', offset: 0, limit: 10 })
       }
     },
 
