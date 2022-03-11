@@ -5,7 +5,7 @@ import type { LoginStatus, IRoleList } from './type'
 import type { IMenuList } from '@/components/nav-menu'
 
 import router from '@/router'
-import { loginAccount, getPageList } from '@/service'
+import { loginAccount, getPageList, getRolePermissionById } from '@/service'
 import { localCache } from '@/utils/cache'
 import { getTreeData, mapRouterMenu } from '@/utils/map-menu'
 
@@ -15,9 +15,11 @@ const useLoginStore = defineStore('login', {
       token: '',
       user: {
         name: '',
-        id: 0
+        id: 0,
+        role_id: 0
       },
       userMenu: [],
+      entireMenu: [],
       entireRole: []
     }
   },
@@ -32,6 +34,7 @@ const useLoginStore = defineStore('login', {
 
       localCache.setCache('token', token)
       localCache.setCache('user', user)
+      await this.getUserMenuAction(this.user.role_id)
 
       await this.getMenuListAction()
       this.loadRoutes()
@@ -41,7 +44,15 @@ const useLoginStore = defineStore('login', {
       router.push('/main')
     },
 
-    // 获取菜单列表
+    // 根据角色id获取对应的菜单权限
+    async getUserMenuAction(role_id: number) {
+      const result = await getRolePermissionById(role_id)
+      this.userMenu = getTreeData(result.data)
+
+      localCache.setCache('userMenu', this.userMenu)
+    },
+
+    // 获取所有菜单列表
     async getMenuListAction() {
       const { data } = await getPageList('/menu', {
         query: '',
@@ -51,9 +62,9 @@ const useLoginStore = defineStore('login', {
 
       const list = data.rows as IMenuList[]
 
-      this.userMenu = getTreeData(list)
+      this.entireMenu = getTreeData(list)
 
-      localCache.setCache('userMenu', this.userMenu)
+      localCache.setCache('entireMenu', this.entireMenu)
     },
 
     // 获取所有角色列表

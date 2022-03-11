@@ -23,3 +23,7 @@ export function updatePageData(url: string, data: any) {
 export function deletePageData(url: string) {
   return http.delete<IDataType>({ url })
 }
+
+export function getRolePermissionById(role_id: number) {
+  return http.get<IDataType>({ url: `/role/${role_id}` })
+}

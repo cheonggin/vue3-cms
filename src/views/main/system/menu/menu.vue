@@ -39,7 +39,7 @@ const loginStore = useLoginStore()
 const formConfigRef = computed(() => {
   // 找出父级菜单选项
   const parentItem = formConfig.formData.find(item => item.field === 'pid')
-  parentItem!.options = loginStore.userMenu
+  parentItem!.options = loginStore.entireMenu
   return formConfig
 })
 
