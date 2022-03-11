@@ -1,6 +1,11 @@
 <template>
   <el-card>
-    <PageSearch v-model="query" @search="onSearch" @clear="onClear" />
+    <PageSearch
+      v-model="query"
+      @search="onSearch"
+      @clear="onClear"
+      placeholder="请输入角色名称搜索"
+    />
     <PageContent
       ref="pageContentRef"
       v-bind="contentConfig"
