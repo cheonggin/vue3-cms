@@ -18,7 +18,9 @@ const useMainStore = defineStore('main', {
       adminList: [],
       adminTotal: 0,
       menuList: [],
-      menuTotal: 0
+      menuTotal: 0,
+      roleList: [],
+      roleTotal: 0
     }
   },
   getters: {

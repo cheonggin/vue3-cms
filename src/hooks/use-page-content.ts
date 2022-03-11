@@ -28,7 +28,7 @@ export default function usePageContent(
       pageDialogRef.value.isShowDialog = true
     }
 
-    editCallback && editCallback()
+    editCallback && editCallback(rowData)
   }
 
   return {

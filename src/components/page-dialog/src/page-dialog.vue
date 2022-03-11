@@ -30,7 +30,8 @@ const props = defineProps({
   tip: { type: String, default: '' },
   defaultInfo: { type: Object, default: () => {} },
   formConfig: { type: Object as PropType<IFormConfig>, default: () => {} },
-  pageName: { type: String, require: true, default: '' }
+  pageName: { type: String, require: true, default: '' },
+  permissionList: { type: Object, default: () => {} }
 })
 const isShowDialog = ref(false)
 const formModel = ref<any>({})
@@ -57,14 +58,16 @@ async function handleConfirm() {
 
   if (_len > 0) {
     // 编辑
-    await mainStore.updatePageDataAction(
-      props.pageName,
-      props.defaultInfo.id,
-      formModel.value
-    )
+    await mainStore.updatePageDataAction(props.pageName, props.defaultInfo.id, {
+      ...formModel.value,
+      ...props.permissionList
+    })
   } else {
     // 添加
-    await mainStore.addPageDataAction(props.pageName, formModel.value)
+    await mainStore.addPageDataAction(props.pageName, {
+      ...formModel.value,
+      ...props.permissionList
+    })
   }
 }
 
