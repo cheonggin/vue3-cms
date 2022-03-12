@@ -6,7 +6,7 @@ import { RouteRecordRaw } from 'vue-router'
  * @param data
  * @returns
  */
-export function getTreeData(data: IMenuList[]) {
+export function getTreeData(data: any[]) {
   const parents = data.filter(item => item.pid === null)
   const children = data.filter(item => item.pid !== null)
 
@@ -15,7 +15,7 @@ export function getTreeData(data: IMenuList[]) {
   return parents
 }
 
-function toTree(parents: IMenuList[], children: IMenuList[]) {
+function toTree(parents: any[], children: any[]) {
   parents.map(p => {
     children.map((c, i) => {
       if (p.id === c.pid) {
