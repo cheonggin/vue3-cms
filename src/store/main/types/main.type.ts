@@ -5,4 +5,6 @@ export interface IMainState {
   menuTotal: any
   roleList: any[]
   roleTotal: any
+  categoryList: any[]
+  categoryTotal: any
 }

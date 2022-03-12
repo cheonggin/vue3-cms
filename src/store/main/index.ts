@@ -20,7 +20,9 @@ const useMainStore = defineStore('main', {
       menuList: [],
       menuTotal: 0,
       roleList: [],
-      roleTotal: 0
+      roleTotal: 0,
+      categoryList: [],
+      categoryTotal: 0
     }
   },
   getters: {
@@ -33,7 +35,7 @@ const useMainStore = defineStore('main', {
       const url = `/${pageName}`
       const result = await getPageList(url, queryInfo)
 
-      if (pageName === 'menu') {
+      if (pageName === 'menu' || pageName === 'category') {
         const list = getTreeData(result.data.rows)
         this[`${pageName}List` as keyof IMainState] = list
       } else {

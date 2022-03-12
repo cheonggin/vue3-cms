@@ -20,7 +20,8 @@ const useLoginStore = defineStore('login', {
       },
       userMenu: [],
       entireMenu: [],
-      entireRole: []
+      entireRole: [],
+      entireCategory: []
     }
   },
 
@@ -40,6 +41,7 @@ const useLoginStore = defineStore('login', {
       this.loadRoutes()
 
       await this.getRoleListAction()
+      await this.getCategoryListAction()
 
       router.push('/main')
     },
@@ -79,17 +81,32 @@ const useLoginStore = defineStore('login', {
       localCache.setCache('entireRole', this.entireRole)
     },
 
+    // 获取所有分类列表
+    async getCategoryListAction() {
+      const { data } = await getPageList('/category', {
+        query: '',
+        offset: 0,
+        limit: 1000
+      })
+
+      const list = data.rows
+      this.entireCategory = getTreeData(list)
+      localCache.setCache('entireCategory', this.entireCategory)
+    },
+
     // 加载localStorage中存储的信息，处理页面刷新数据丢失
     loadLocalLogin() {
       const token = localCache.getCache('token')
       const user = localCache.getCache('user')
       const userMenu = localCache.getCache('userMenu')
       const entireRole = localCache.getCache('entireRole')
+      const entireCategory = localCache.getCache('entireCategory')
 
       this.token = token
       this.user = user
       this.userMenu = userMenu
       this.entireRole = entireRole
+      this.entireCategory = entireCategory
 
       if (this.userMenu) {
         this.loadRoutes()

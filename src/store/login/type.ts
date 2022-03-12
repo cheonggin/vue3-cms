@@ -20,4 +20,5 @@ export interface LoginStatus {
   userMenu: IMenuList[]
   entireMenu: IMenuList[]
   entireRole: IRoleList[]
+  entireCategory: any[]
 }
