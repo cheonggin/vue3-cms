@@ -65,7 +65,7 @@ const dialogConfig = {
 }
 
 const loginStore = useLoginStore()
-const menuList = computed(() => loginStore.userMenu)
+const menuList = computed(() => loginStore.entireMenu)
 const elTreeRef = ref<InstanceType<typeof ElTree>>()
 const permissionList = ref({})
 
