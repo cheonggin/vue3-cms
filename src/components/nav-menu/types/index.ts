@@ -2,7 +2,7 @@ export interface IMenuList {
   id: number
   pid?: number
   name: string
-  type: 1 | 2
+  type: '1' | '2'
   path: string
   icon: string
   component: string
