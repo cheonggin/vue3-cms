@@ -4,6 +4,7 @@ import router from './router'
 import { createPinia } from 'pinia'
 import ElementPlusIcon from '@/global/register-element-plus-icon'
 import { useLoginStore } from '@/store/login/login'
+import useDirectives from '@/global/directives'
 
 import '@/assets/styles/index.css'
 import 'element-plus/theme-chalk/index.css'
@@ -16,4 +17,5 @@ loginStore.loadLocalLogin()
 
 app.use(router)
 app.use(ElementPlusIcon)
+app.use(useDirectives)
 app.mount('#app')

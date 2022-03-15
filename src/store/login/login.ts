@@ -49,9 +49,13 @@ const useLoginStore = defineStore('login', {
     // 根据角色id获取对应的菜单权限
     async getUserMenuAction(role_id: number) {
       const result = await getRolePermissionById(role_id)
-      this.userMenu = getTreeData(result.data)
+      const data = result.data as IMenuList[]
+      const menuList = data.filter(item => item.type === '1')
+      const actionList = data.filter(item => item.type === '2')
+      this.userMenu = getTreeData(menuList)
 
       localCache.setCache('userMenu', this.userMenu)
+      localCache.setCache('userAction', actionList)
     },
 
     // 获取所有菜单列表
@@ -63,7 +67,7 @@ const useLoginStore = defineStore('login', {
       })
 
       const list = data.rows as IMenuList[]
-
+      console.log(list)
       this.entireMenu = getTreeData(list)
 
       localCache.setCache('entireMenu', this.entireMenu)
@@ -99,12 +103,14 @@ const useLoginStore = defineStore('login', {
       const token = localCache.getCache('token')
       const user = localCache.getCache('user')
       const userMenu = localCache.getCache('userMenu')
+      const entireMenu = localCache.getCache('entireMenu')
       const entireRole = localCache.getCache('entireRole')
       const entireCategory = localCache.getCache('entireCategory')
 
       this.token = token
       this.user = user
       this.userMenu = userMenu
+      this.entireMenu = entireMenu
       this.entireRole = entireRole
       this.entireCategory = entireCategory
 

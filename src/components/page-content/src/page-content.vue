@@ -8,9 +8,13 @@
     v-model:pageSize="queryInfo.limit"
   >
     <template #headerHandler>
-      <el-button type="primary" icon="Plus" @click="handleAddClick">{{
-        text
-      }}</el-button>
+      <el-button
+        type="primary"
+        icon="Plus"
+        @click="handleAddClick"
+        v-has:create="'create-' + pageName"
+        >{{ text }}</el-button
+      >
     </template>
 
     <template #create_at="scope">
@@ -26,6 +30,7 @@
         type="primary"
         icon="Edit"
         circle
+        v-has:edit="'edit-' + pageName"
         @click="handleEditClick(scope.row)"
       ></el-button>
       <el-popconfirm
@@ -37,7 +42,12 @@
         @cancel="cancelEvent"
       >
         <template #reference>
-          <el-button type="danger" icon="Delete" circle></el-button>
+          <el-button
+            type="danger"
+            icon="Delete"
+            circle
+            v-has:delete="'delete-' + pageName"
+          ></el-button>
         </template>
       </el-popconfirm>
     </template>
@@ -57,7 +67,7 @@ import MyTable, { ITableConfig } from '@/base-ui/table'
 import { useMainStore } from '@/store/main'
 import { formatUtcString } from '@/utils/format-time'
 
-import type { IMainState } from '@/store/main/types/main.type'
+import { IMainState } from '@/store/main/types/main.type'
 
 const props = defineProps({
   title: { type: String, default: '' },
