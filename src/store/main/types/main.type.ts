@@ -7,4 +7,6 @@ export interface IMainState {
   roleTotal: any
   categoryList: any[]
   categoryTotal: any
+  goodsList: any[]
+  goodsTotal: any
 }

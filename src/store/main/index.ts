@@ -22,7 +22,9 @@ const useMainStore = defineStore('main', {
       roleList: [],
       roleTotal: 0,
       categoryList: [],
-      categoryTotal: 0
+      categoryTotal: 0,
+      goodsList: [],
+      goodsTotal: 0
     }
   },
   getters: {
