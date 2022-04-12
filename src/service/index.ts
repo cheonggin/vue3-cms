@@ -17,7 +17,7 @@ export function addPageData(url: string, data: any) {
 }
 
 export function updatePageData(url: string, data: any) {
-  return http.put<IDataType>({ url, data })
+  return http.patch<IDataType>({ url, data })
 }
 
 export function deletePageData(url: string) {
