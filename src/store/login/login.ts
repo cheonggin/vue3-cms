@@ -67,7 +67,7 @@ const useLoginStore = defineStore('login', {
       })
 
       const list = data.rows as IMenuList[]
-      console.log(list)
+
       this.entireMenu = getTreeData(list)
 
       localCache.setCache('entireMenu', this.entireMenu)
