@@ -52,15 +52,13 @@ class Http {
         this.loading?.close()
 
         if (err.response) {
-          if (err.response.data.message) {
-            switch (err.response.status) {
-              case 401:
-                ElMessage({ message: err.response.data.message, type: 'error' })
-                router.push('/login')
-                break
-              default:
-                ElMessage({ message: err.response.data.message, type: 'error' })
-            }
+          switch (err.response.status) {
+            case 401:
+              ElMessage({ message: err.response.data.msg, type: 'error' })
+              router.push('/login')
+              break
+            default:
+              ElMessage({ message: err.response.data.msg, type: 'error' })
           }
         }
 
